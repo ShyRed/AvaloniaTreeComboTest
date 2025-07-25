@@ -1,8 +1,23 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaTreeComboTest.Core.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaTreeComboTest.Views.ComboBoxPageView">
-    ComboBox be here.
+             x:Class="AvaloniaTreeComboTest.Views.ComboBoxPageView"
+             x:DataType="vm:ComboBoxPageViewModel">
+    <StackPanel Spacing="10">
+        <TextBlock>Press the "Load" button to fill the combobox with 100.000 fake data.</TextBlock>
+        
+        <StackPanel Orientation="Horizontal"
+                    Spacing="10">
+            <ComboBox ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem}"
+                      DisplayMemberBinding="{Binding Name}"
+                      IsTextSearchEnabled="True"
+                      Width="200">
+            </ComboBox>
+            <Button Command="{Binding LoadItemsCommand}">Load</Button>
+        </StackPanel>
+    </StackPanel>
 </UserControl>
