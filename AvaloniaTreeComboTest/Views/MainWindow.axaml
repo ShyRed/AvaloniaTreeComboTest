@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaTreeComboTest.Core.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="using:AvaloniaTreeComboTest.ValueConverters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="AvaloniaTreeComboTest.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="800" Height="600"
+        MinWidth="600" MinHeight="300"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaTreeComboTest">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <SplitView IsPaneOpen="{Binding IsPaneOpen, Mode=OneWay}"
+               CompactPaneLength="48"
+               OpenPaneLength="220"
+               DisplayMode="CompactInline">
+        <SplitView.Pane>
+            <StackPanel Spacing="5"
+                        Margin="5">
+                <Button Command="{Binding TogglePaneCommand, Mode=OneWay}">
+                    <PathIcon Data="{StaticResource LineHorizontal3Regular}" />
+                </Button>
+                <ListBox ItemsSource="{Binding NavigationItems, Mode=OneWay}"
+                         SelectedItem="{Binding SelectedNavigationItem, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type vm:NavigationItem}">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="15">
+                                <PathIcon Data="{Binding ., Converter={x:Static converters:NavigationItemToIconConverter.Instance}}" />
+                                <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </SplitView.Pane>
+        
+        <SplitView.Content>
+            <Border Margin="5">
+                <StackPanel>
+                    <TextBlock Text="{Binding SelectedNavigationItem.Name, Mode=OneWay}"
+                               FontSize="32"/>
+                    <TransitioningContentControl Content="{Binding CurrentPage, Mode=OneWay}"
+                                                 Margin="0 10 0 0"/>
+                </StackPanel>
+            </Border>
+        </SplitView.Content>
+    </SplitView>
+
+</Window>
