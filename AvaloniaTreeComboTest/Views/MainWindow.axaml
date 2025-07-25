@@ -45,12 +45,15 @@
         
         <SplitView.Content>
             <Border Margin="5">
-                <StackPanel>
-                    <TextBlock Text="{Binding SelectedNavigationItem.Name, Mode=OneWay}"
-                               FontSize="32"/>
-                    <TransitioningContentControl Content="{Binding CurrentPage, Mode=OneWay}"
-                                                 Margin="0 10 0 0"/>
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock Text="{Binding SelectedNavigationItem.Name, Mode=OneWay}"
+                                   FontSize="32"/>
+
+                            <TransitioningContentControl Content="{Binding CurrentPage, Mode=OneWay}"
+                                                         Margin="0 10 0 0"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </SplitView.Content>
     </SplitView>
