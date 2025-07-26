@@ -21,7 +21,10 @@ public partial class App : Application
     {
         ServiceCollection services = new();
         services.AddCoreServices();
+        services.AddFrontendServices();
         var serviceProvider = services.BuildServiceProvider();
+        
+        DataTemplates.Add(serviceProvider.GetRequiredService<ViewLocator>());
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

@@ -3,10 +3,6 @@
              x:Class="AvaloniaTreeComboTest.App"
              xmlns:local="using:AvaloniaTreeComboTest"
              RequestedThemeVariant="Default">
-
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
   
     <Application.Styles>
         <FluentTheme />

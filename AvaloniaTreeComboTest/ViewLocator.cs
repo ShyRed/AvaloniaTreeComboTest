@@ -2,11 +2,19 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using AvaloniaTreeComboTest.Core.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AvaloniaTreeComboTest;
 
 public class ViewLocator : IDataTemplate
 {
+    private readonly IServiceProvider _serviceProvider;
+
+    public ViewLocator(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+    
     public Control? Build(object? param)
     {
         if (param is null)
@@ -20,7 +28,7 @@ public class ViewLocator : IDataTemplate
 
         if (type != null)
         {
-            return (Control)Activator.CreateInstance(type)!;
+            return (Control)_serviceProvider.GetRequiredService(type);
         }
 
         return new TextBlock { Text = "Not Found: " + name };
