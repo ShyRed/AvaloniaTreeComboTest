@@ -9,8 +9,7 @@
     <StackPanel Spacing="10">
         <TextBlock>Press the "Load" button to fill the tree with 100.000 fake data.</TextBlock>
             
-        <StackPanel Orientation="Horizontal"
-                    Spacing="10">
+        <StackPanel Spacing="10">
             
             <Button Command="{Binding LoadItemsCommand}">
                 Load
@@ -19,9 +18,9 @@
             <TreeDataGrid x:Name="TreeCtrl"
                           Source="{Binding Items}"
                           CanUserResizeColumns="True"
-                          CanUserSortColumns="True">
-                
-            </TreeDataGrid>
+                          CanUserSortColumns="True"
+                          AutoDragDropRows="True"
+                          HorizontalAlignment="Stretch"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

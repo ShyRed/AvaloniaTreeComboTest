@@ -32,11 +32,20 @@ public partial class TreePageView : UserControl
                     new TextColumn<TreeItem, string>(
                         "Name",
                         item => item.Name,
-                        options: new TextColumnOptions<TreeItem>() { IsTextSearchEnabled = true}),
+                        options: new TextColumnOptions<TreeItem>()
+                        {
+                            IsTextSearchEnabled = true,
+                            MinWidth = new GridLength(200)
+                        }),
                     item => item.Children) );
                 source.Columns.Add(new TextColumn<TreeItem,int>(
                     "Value",
-                    item => item.Value));
+                    item => item.Value,
+                    options: new TextColumnOptions<TreeItem>()
+                    {
+                        IsTextSearchEnabled = true,
+                        MinWidth = new GridLength(200)
+                    }));
                 TreeCtrl.Source = source;
             });
     }
