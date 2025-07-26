@@ -12,6 +12,16 @@ namespace AvaloniaTreeComboTest;
 
 public partial class App : Application
 {
+    public static readonly ServiceProvider Services;
+
+    static App()
+    {
+        ServiceCollection services = new();
+        services.AddCoreServices();
+        services.AddFrontendServices();
+        Services = services.BuildServiceProvider();
+    }
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -19,12 +29,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        ServiceCollection services = new();
-        services.AddCoreServices();
-        services.AddFrontendServices();
-        var serviceProvider = services.BuildServiceProvider();
-        
-        DataTemplates.Add(serviceProvider.GetRequiredService<ViewLocator>());
+        DataTemplates.Add(Services.GetRequiredService<ViewLocator>());
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -33,7 +38,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel( serviceProvider ),
+                DataContext = new MainWindowViewModel( Services ),
             };
         }
 
