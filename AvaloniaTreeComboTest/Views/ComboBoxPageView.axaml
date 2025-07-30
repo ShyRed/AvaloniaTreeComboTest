@@ -3,6 +3,8 @@
              xmlns:vm="using:AvaloniaTreeComboTest.Core.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:bh="using:AvaloniaTreeComboTest.Behaviours"
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaTreeComboTest.Views.ComboBoxPageView"
              x:DataType="vm:ComboBoxPageViewModel">
@@ -11,12 +13,15 @@
         
         <StackPanel Orientation="Horizontal"
                     Spacing="10">
-            <ComboBox ItemsSource="{Binding Items}"
+            <AutoCompleteBox ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem}"
-                      DisplayMemberBinding="{Binding Name}"
-                      IsTextSearchEnabled="True"
+                      IsTextCompletionEnabled="True"
+                      FilterMode="StartsWith"
                       Width="200">
-            </ComboBox>
+				<Interaction.Behaviors>
+					<bh:AutoCompleteZeroMinimumPrefixLengthDropdownBehaviour/>
+				</Interaction.Behaviors>
+            </AutoCompleteBox>
             <Button Command="{Binding LoadItemsCommand}">Load</Button>
         </StackPanel>
     </StackPanel>
